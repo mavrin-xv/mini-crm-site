@@ -1,0 +1,36 @@
+# Copy to wrangler.toml and fill database_id (from `npx wrangler d1 create crm`).
+# wrangler.toml is git-ignored so your database id stays out of the repo.
+
+name = "mini-crm-site"
+main = "src/worker.js"
+compatibility_date = "2025-09-01"
+
+# Landing page and any static files. /api/* and /admin* run the Worker first.
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = ["/api/*", "/admin", "/admin/*"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "crm"
+database_id = "REPLACE_WITH_ID_FROM_d1_create"
+migrations_dir = "migrations"
+
+# One cron, every 15 minutes: late-lead alerts in work hours + the daily digest.
+# Cron times are UTC; the Worker converts to BUSINESS.timezone from src/config.js.
+[triggers]
+crons = ["*/15 * * * *"]
+
+[vars]
+# Public base URL, used for the "Open the board" link in notifications.
+PUBLIC_URL = "https://mini-crm-site.example.workers.dev"
+
+# Secrets: never put them here. Set each one with `npx wrangler secret put NAME`:
+#   ADMIN_PASSWORD      password for /admin
+#   SESSION_SECRET      16+ random characters, signs the login cookie
+#   TG_BOT_TOKEN        Telegram bot token (optional if NOTIFY_WEBHOOK_URL is set)
+#   TG_CHAT_ID          chat that receives leads
+#   NOTIFY_WEBHOOK_URL  optional Slack / Discord-compatible incoming webhook
+#   TURNSTILE_SECRET    optional, turns on the Turnstile check in /api/lead
+# For local dev put the same names in .dev.vars (also git-ignored).

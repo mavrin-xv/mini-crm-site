@@ -1,0 +1,15 @@
+{
+  "name": "mini-crm-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Lead form + operator board on one Cloudflare Worker and D1 database",
+  "scripts": {
+    "test": "node --no-warnings test/run.mjs && node --no-warnings test/bookings.mjs",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "migrate:local": "wrangler d1 migrations apply crm --local",
+    "migrate:remote": "wrangler d1 migrations apply crm --remote"
+  },
+  "engines": { "node": ">=22" }
+}

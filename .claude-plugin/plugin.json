@@ -1,0 +1,12 @@
+{
+  "name": "mini-crm-site",
+  "description": "A website and CRM for a small service business on one free Cloudflare Worker and D1 database: lead form, operator board with statuses, Telegram or webhook alerts, late-lead and daily digest cron, plus skills to deploy, customise, operate, audit and add bookings.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Artem Mavrin",
+    "url": "https://github.com/mavrin-xv"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/mavrin-xv/mini-crm-site",
+  "repository": "https://github.com/mavrin-xv/mini-crm-site"
+}
